@@ -1,1 +1,155 @@
-<p>zodiaco works!</p>
+<div class="container mt-5">
+  <h1 class="text-center">Zodiaco Chino</h1>
+ 
+  <div class="d-flex">
+    <div class="form-container">
+      <form [formGroup]="formulario" class="border p-4 rounded shadow">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input id="nombre" formControlName="nombre" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="apellidop">Apellido Paterno:</label>
+          <input id="apellidop" formControlName="apellidop" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="apellidom">Apellido Materno:</label>
+          <input id="apellidom" formControlName="apellidom" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+          <input id="fechaNacimiento" formControlName="fechaNacimiento" type="date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="genero">Género:</label>
+          <select id="genero" formControlName="genero" class="form-control" required>
+            <option value="">Selecciona tu género</option>
+            <option value="hombre">Hombre</option>
+            <option value="mujer">Mujer</option>
+          </select>
+        </div>
+        <button (click)="imprimirResultado()" type="button" class="btn btn-success mt-3">Imprimir</button>
+      </form>
+    </div>
+
+    <div *ngIf="resultado" class="result-container">
+      <h3>{{ resultado }}</h3>
+      <img *ngIf="imagenSigno" [src]="imagenSigno" alt="Signo Chino" class="img-fluid mt-3" style="max-width: 200px;">
+    </div>
+  </div>
+</div>
+
+<style>
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Form Styles */
+.form-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #495057;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #80bdff;
+  outline: none;
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Result Styles */
+.result-container {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h3 {
+  color: #333;
+  font-size: 24px;
+}
+
+img {
+  margin-top: 15px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Flexbox layout */
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .d-flex {
+      flex-direction: column;
+  }
+
+  .form-container {
+      margin-right: 0;
+      margin-bottom: 20px;
+  }
+}
+</style>
