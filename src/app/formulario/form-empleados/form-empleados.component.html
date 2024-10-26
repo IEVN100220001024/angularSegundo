@@ -1,0 +1,101 @@
+<div class="flex justify-between items-start px-8 py-6">
+  <div class="w-1/2 max-w-md bg-white p-6 shadow-lg rounded-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">Registro de Empleados</h2>
+    <form [formGroup]="formularioEmpleado" class="space-y-5">
+      
+
+      <div>
+        <label for="matricula" class="block text-sm font-medium text-gray-700">Matrícula:</label>
+        <input type="text" id="matricula" formControlName="matricula" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Matrícula" />
+        <div *ngIf="formularioEmpleado.get('matricula')?.invalid && formularioEmpleado.get('matricula')?.touched" class="text-red-500 text-sm mt-1">
+          Matrícula es obligatoria.
+        </div>
+      </div>
+
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+        <input type="text" id="nombre" formControlName="nombre" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nombre" />
+        <div *ngIf="formularioEmpleado.get('nombre')?.invalid && formularioEmpleado.get('nombre')?.touched" class="text-red-500 text-sm mt-1">
+          Nombre es obligatorio.
+        </div>
+      </div>
+
+      <div>
+        <label for="correo" class="block text-sm font-medium text-gray-700">Correo:</label>
+        <input type="email" id="correo" formControlName="correo" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Correo" />
+        <div *ngIf="formularioEmpleado.get('correo')?.invalid && formularioEmpleado.get('correo')?.touched" class="text-red-500 text-sm mt-1">
+          Correo válido es obligatorio.
+        </div>
+      </div>
+
+      <div>
+        <label for="edad" class="block text-sm font-medium text-gray-700">Edad:</label>
+        <input type="number" id="edad" formControlName="edad" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Edad" />
+        <div *ngIf="formularioEmpleado.get('edad')?.invalid && formularioEmpleado.get('edad')?.touched" class="text-red-500 text-sm mt-1">
+          Edad es obligatoria y debe ser mayor de 18 años.
+        </div>
+      </div>
+
+      <div>
+        <label for="horasTrabajadas" class="block text-sm font-medium text-gray-700">Horas Trabajadas:</label>
+        <input type="number" id="horasTrabajadas" formControlName="horasTrabajadas" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Horas trabajadas" />
+        <div *ngIf="formularioEmpleado.get('horasTrabajadas')?.invalid && formularioEmpleado.get('horasTrabajadas')?.touched" class="text-red-500 text-sm mt-1">
+          Horas trabajadas es obligatoria.
+        </div>
+      </div>
+
+
+      <div class="flex space-x-4">
+        <button (click)="agregarEmpleado()" type="button" [disabled]="formularioEmpleado.invalid" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg focus:ring-4 focus:ring-blue-500">
+          Registrar
+        </button>
+        <button (click)="mostrarTabla()" type="button" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg focus:ring-4 focus:ring-green-500">
+          Imprimir
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="w-1/2 bg-white p-6 shadow-lg rounded-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">Empleados Registrados</h2>
+    <div *ngIf="tablaVisible" class="relative overflow-x-auto mt-4">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3">Matrícula</th>
+            <th scope="col" class="px-6 py-3">Nombre</th>
+            <th scope="col" class="px-6 py-3">Correo</th>
+            <th scope="col" class="px-6 py-3">Edad</th>
+            <th scope="col" class="px-6 py-3">Horas Trabajadas</th>
+            <th scope="col" class="px-6 py-3">Horas x Pagar</th>
+            <th scope="col" class="px-6 py-3">Horas Extras</th>
+            <th scope="col" class="px-6 py-3">SubTotal</th>
+            <th scope="col" class="px-6 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleados; let i = index" class="bg-white border-b">
+            <td class="px-6 py-4">{{ empleado.matricula }}</td>
+            <td class="px-6 py-4">{{ empleado.nombre }}</td>
+            <td class="px-6 py-4">{{ empleado.correo }}</td>
+            <td class="px-6 py-4">{{ empleado.edad }}</td>
+            <td class="px-6 py-4">{{ empleado.horasTrabajadas }} horas</td>
+            <td class="px-6 py-4">${{ empleado.horasPorPagar }}</td>
+            <td class="px-6 py-4">{{ empleado.horasExtras }}</td>
+            <td class="px-6 py-4">{{ empleado.subTotal }}</td>
+            <td class="flex space-x-2">
+              <button (click)="modificarEmpleado(i)" class="text-white bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-lg">Modificar</button>
+              <button (click)="eliminarEmpleado(i)" class="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="bg-gray-100">
+            <td colspan="7" class="text-right px-6 py-4 font-bold">Total a Pagar:</td>
+            <td colspan="2" class="px-6 py-4 font-bold">{{ totalPagar }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
